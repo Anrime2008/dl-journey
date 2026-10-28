@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+
+# Jupyter
+*.ipynb_checkpoints
+
+# 模型与数据（体积大，不进仓库）
+*.pth
+*.pt
+*.onnx
+data/
+!docs/**/*.png
