@@ -1,0 +1,11 @@
+{
+  "python.defaultInterpreterPath": "D:/miniforge3/envs/dl/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "editor.fontSize": 15,
+  "editor.tabSize": 4,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 2000,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "git.autofetch": true
+}
