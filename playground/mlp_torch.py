@@ -30,12 +30,24 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
 # ---------- 超参数：先动这几个数就行 ----------
-BATCH = 64        # 一次喂多少张图
+# 想快速试别的配置，不用改文件，直接在命令行前面加环境变量，例如：
+#   set HIDDEN=32 && set EPOCHS=3 && python playground\mlp_torch.py
+BATCH = 64          # 一次喂多少张图
 EPOCHS = 5        # 整个训练集看几遍
-LR = 0.001        # 学习率：每一步走多大
+LR = 0.001          # 学习率：每一步走多大
+HIDDEN = 256        # 隐藏层神经元个数
+
+BATCH = int(os.environ.get("BATCH", BATCH))
+EPOCHS = int(os.environ.get("EPOCHS", EPOCHS))
+LR = float(os.environ.get("LR", LR))
+HIDDEN = int(os.environ.get("HIDDEN", HIDDEN))
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data")
+
+# 固定随机种子：保证每次跑出来的结果一样（不然每次初始化权重不同，准确率会差零点几个点）
+SEED = 0
+torch.manual_seed(SEED)
 
 # ---------- 1. 数据 ----------
 # ToTensor：把 0–255 的像素变成 0–1 的张量
@@ -58,9 +70,9 @@ test_loader = DataLoader(test_ds, batch_size=1000)
 # Linear(256,10)：第二层，256 → 10，对应 0–9 十个类别
 model = nn.Sequential(
     nn.Flatten(),
-    nn.Linear(784, 256),
+    nn.Linear(784, HIDDEN),
     nn.ReLU(),
-    nn.Linear(256, 10),
+    nn.Linear(HIDDEN, 10),
 )
 
 loss_fn = nn.CrossEntropyLoss()                                  # 多分类的标准损失
