@@ -48,7 +48,7 @@ def initialize_parameters(n_x, n_h, n_y):
 
 
 def forward_propagation(X, params):
-    """Z1 = W1X + b1, A1 = tanh(Z1), Z2 = W2A1 + b2, A2 = sigmoid(Z2)."""
+    
     W1, b1, W2, b2 = params["W1"], params["b1"], params["W2"], params["b2"]
 
     Z1 = W1 @ X + b1
@@ -69,7 +69,7 @@ def compute_cost(A2, Y):
 
 
 def backward_propagation(params, cache, X, Y):
-    """Backpropagation; returns gradients with the same shapes as the parameters."""
+
     m = X.shape[1]
     W2 = params["W2"]
     A1, A2 = cache["A1"], cache["A2"]
@@ -88,7 +88,6 @@ def backward_propagation(params, cache, X, Y):
 
 
 def update_parameters(params, grads, learning_rate):
-    """Vanilla gradient descent update."""
     params["W1"] -= learning_rate * grads["dW1"]
     params["b1"] -= learning_rate * grads["db1"]
     params["W2"] -= learning_rate * grads["dW2"]
@@ -97,7 +96,6 @@ def update_parameters(params, grads, learning_rate):
 
 
 def nn_model(X, Y, n_h=8, num_iterations=10000, learning_rate=1.0):
-    """Train the network and return the parameters and the cost history."""
     n_x = X.shape[0]
     n_y = Y.shape[0]
     params = initialize_parameters(n_x, n_h, n_y)
@@ -117,7 +115,6 @@ def nn_model(X, Y, n_h=8, num_iterations=10000, learning_rate=1.0):
 
 
 def predict(params, X):
-    """Threshold the predicted probability at 0.5."""
     A2, _ = forward_propagation(X, params)
     return (A2 > 0.5).astype(int)
 
